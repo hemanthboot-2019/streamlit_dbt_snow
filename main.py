@@ -16,3 +16,6 @@ streamlit.set_page_config(
          'About': "# This is a header. This is an *extremely* cool app!"
      }
  )
+my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
+my_cnx.execute("select current_user()")
+streamlit.text(my_cnx.fetchall())
