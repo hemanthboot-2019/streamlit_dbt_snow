@@ -4,7 +4,7 @@ import pandas as pd
 import requests
 import snowflake.connector
 from urllib.error import URLError
-
+# 📜
 st.set_page_config(
      page_title="AI-Support",
      page_icon="❄️",
