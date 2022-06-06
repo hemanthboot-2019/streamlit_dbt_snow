@@ -18,9 +18,9 @@ st.set_page_config(
  )
 st.title("DBT-Snowflake Dashboard")
 col1, col2, col3 = st.columns(3)
-col1.metric("Temperature", "70 °F", "1.2 °F")
-col2.metric("Wind", "9 mph", "-8%")
-col3.metric("Humidity", "86%", "4%")
+col1.metric("Clean", "70 °F", "1.2 °F")
+col2.metric("Base", "9 mph", "-8%")
+col3.metric("Enterprise", "86%", "4%")
 my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
 with my_cnx.cursor() as my_cur:
      my_cur.execute("select * from DEV_RAW.PUBLIC.DBT_MAPPING_DF")
