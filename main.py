@@ -18,5 +18,5 @@ streamlit.set_page_config(
  )
 my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
 with my_cnx.cursor() as my_cur:
-     my_cnr.execute("select * from DEV_RAW.PUBLIC.DBT_MAPPING_DF")
-     streamlit.text(my_cnx.fetchall())
+     my_cur.execute("select * from DEV_RAW.PUBLIC.DBT_MAPPING_DF")
+     streamlit.text(my_cur.fetchall())
