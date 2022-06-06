@@ -62,7 +62,7 @@ col2.metric("Base", len(base_count), "-8%")
 col3.metric("Enterprise", len(enterprise_count), "4%")
 col4.metric("MDL", len(mdl_count), "-8%")
 col5.metric("Aggregate", len(aggregate_count), "4%")
-col5.metric("Outbound", len(Outbound_count), "4%")
+col6.metric("Outbound", len(outbound_count), "4%")
 my_cnx = snowflake.connector.connect(**st.secrets["snowflake"])
 with my_cnx.cursor() as my_cur:
      my_cur.execute("select * from DEV_RAW.PUBLIC.DBT_MAPPING")
