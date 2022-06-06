@@ -23,7 +23,7 @@ def get_clean_count():
     my_cur.execute("select * from DEV_RAW.PUBLIC.DBT_MAPPING_DF where model_type='clean'")
     return my_cur.fetchall()
 clean_count=get_clean_count()
-clean_count=pd.Dataframe(clean_count)
+clean_count=pd.DataFrame(clean_count)
 st.title("DBT-Snowflake Dashboard")
 col1, col2, col3 = st.columns(3)
 col1.metric("Clean", len(clean_count), "1.2 °F")
