@@ -28,7 +28,7 @@ def get_base_count():
     return my_cur.fetchall()
 def get_enterprise_count():
   with my_cnx.cursor() as my_cur:
-    my_cur.execute("select * from DEV_RAW.PUBLIC.DBT_MAPPING where model_type='enterpise'")
+    my_cur.execute("select * from DEV_RAW.PUBLIC.DBT_MAPPING where model_type='enterprise'")
     return my_cur.fetchall()
 def get_mdl_count():
   with my_cnx.cursor() as my_cur:
