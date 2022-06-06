@@ -16,7 +16,7 @@ st.set_page_config(
          'About': "# This is a header. This is an *extremely* cool app!"
      }
  )
-@streamlit.cache  
+#@streamlit.cache  
 my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
 def get_clean_count():
   with my_cnx.cursor() as my_cur:
