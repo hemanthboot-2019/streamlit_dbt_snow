@@ -17,5 +17,5 @@ streamlit.set_page_config(
      }
  )
 my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
-my_cnx.execute("select current_user()")
+my_cnx.execute("select * from DEV_RAW.PUBLIC.DBT_MAPPING_DF")
 streamlit.text(my_cnx.fetchall())
