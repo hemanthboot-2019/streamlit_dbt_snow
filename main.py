@@ -20,7 +20,7 @@ st.set_page_config(
 my_cnx = snowflake.connector.connect(**st.secrets["snowflake"])
 def get_clean_count():
   with my_cnx.cursor() as my_cur:
-    my_cur.execute("select * from DEV_RAW.PUBLIC.DBT_MAPPING_DF where model_type='clean'")
+    my_cur.execute("select * from DEV_RAW.PUBLIC.DBT_MAPPING where model_type='clean'")
     return my_cur.fetchall()
 clean_count=get_clean_count()
 clean_count=pd.DataFrame(clean_count)
@@ -31,5 +31,5 @@ col2.metric("Base", "9 mph", "-8%")
 col3.metric("Enterprise", "86%", "4%")
 my_cnx = snowflake.connector.connect(**st.secrets["snowflake"])
 with my_cnx.cursor() as my_cur:
-     my_cur.execute("select * from DEV_RAW.PUBLIC.DBT_MAPPING_DF")
+     my_cur.execute("select * from DEV_RAW.PUBLIC.DBT_MAPPING")
      st.dataframe(my_cur.fetchall())
