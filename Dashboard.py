@@ -85,5 +85,5 @@ with my_cnx.cursor() as my_cur:
      
      if st.button('Analyse Impact'):
         st.text("button clicekd")
-     else
+     else :
         st.text("button not clicked")
