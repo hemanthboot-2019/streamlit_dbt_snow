@@ -70,7 +70,7 @@ col4.metric("MDL", len(mdl_count), "-8%")
 col5.metric("Aggregate", len(aggregate_count), "4%")
 col3.metric("Outbound", len(outbound_count), "4%")
 
-def dag(input_array,append_df):
+def dag(input_array):
      objects=', '.join(f'\'{w}\'' for w in input_array)
      with my_cnx.cursor() as my_cur:
           my_cur.execute(" select distinct model_name  from DEV_RAW.PUBLIC.DBT_MAPPING where model_ref_by in ("+objects+")")
@@ -83,13 +83,13 @@ def dag(input_array,append_df):
                #st.text(list_ref)
                my_cur.execute(" select distinct model_name,model_ref_by  from DEV_RAW.PUBLIC.DBT_MAPPING where model_ref_by in ("+objects+")")
                st.dataframe(my_cur.fetchall())
-               df=pd.DataFrame(my_cur.fetchall())
-               append_df.append(df, ignore_index = True)
-               st.dataframe(append_df)
+               res.append(my_cur.fetchall())
+               
                
                if len(df)>0:
                     dag(list_ref,append_df)
-          return st.dataframe(append_df)
+          return "end"
+     
              
           
           
@@ -125,8 +125,10 @@ with my_cnx.cursor() as my_cur:
           st.text(df)
           list_ref=df['model_name'].tolist()
           st.text(list_ref)
-          df=pd.DataFrame()
-          dag(model_list_opt,df)
+          
+          res=[]
+          dag(model_list_opt)
+          st.text(res)
           #st.text( "select model_name, model_ref_by from DEV_RAW.PUBLIC.DBT_MAPPING where model_type='"+model_type_opt+"' and model_business='"+model_business_opt+"'and model_name in ("+result+")")
      else :
           st.text("button not clicked")
