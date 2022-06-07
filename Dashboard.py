@@ -88,7 +88,7 @@ with my_cnx.cursor() as my_cur:
           result=', '.join(f'\'{w}\'' for w in model_list_opt)
           st.text(result)
           #my_cur.execute("select model_ref_by,model_name  from DEV_RAW.PUBLIC.DBT_MAPPING where model_ref_by in ("+result+")")
-          my_cur.execute("model_name  from DEV_RAW.PUBLIC.DBT_MAPPING where model_ref_by in ("+result+")")
+          my_cur.execute(" select model_name  from DEV_RAW.PUBLIC.DBT_MAPPING where model_ref_by in ("+result+")")
           df=my_cur.fetchall()
           list_ref=df.to_string()
           st.text(list_ref)
