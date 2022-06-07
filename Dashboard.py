@@ -80,7 +80,7 @@ def dag(input_array):
           st.text(list_ref)
           my_cur.execute(" select distinct model_name,model_ref_by  from DEV_RAW.PUBLIC.DBT_MAPPING where model_ref_by in ("+objects+")")
           st.text(my_cur.fetchall())
-          if len(df)<>0:
+          if len(df)>0:
                dag(list_ref)
           else:
                return list_ref
