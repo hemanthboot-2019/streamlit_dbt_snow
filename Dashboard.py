@@ -84,7 +84,7 @@ def dag(input_array,append_df):
                my_cur.execute(" select distinct model_name,model_ref_by  from DEV_RAW.PUBLIC.DBT_MAPPING where model_ref_by in ("+objects+")")
                #st.dataframe(my_cur.fetchall())
                df=pd.DataFrame(my_cur.fetchall())
-               append_df.append(df1, ignore_index = True)
+               append_df.append(df, ignore_index = True)
                if len(df)>0:
                     dag(list_ref,append_df)
           return st.dataframe(append_df)
