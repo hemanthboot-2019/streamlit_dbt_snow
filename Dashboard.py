@@ -82,8 +82,9 @@ def dag(input_array):
                list_ref=df['model_name'].tolist()
                #st.text(list_ref)
                my_cur.execute(" select distinct model_name,model_ref_by  from DEV_RAW.PUBLIC.DBT_MAPPING where model_ref_by in ("+objects+")")
-               st.dataframe(my_cur.fetchall())
-               res.append(my_cur.fetchall())
+               fd=pd.DataFrame(my_cur.fetchall())
+               
+               res.append(fd)
                
                
                if len(df)>0:
@@ -126,7 +127,7 @@ with my_cnx.cursor() as my_cur:
           list_ref=df['model_name'].tolist()
           st.text(list_ref)
           
-          res=[]
+          res=list()
           dag(model_list_opt)
           st.text(res)
           #st.text( "select model_name, model_ref_by from DEV_RAW.PUBLIC.DBT_MAPPING where model_type='"+model_type_opt+"' and model_business='"+model_business_opt+"'and model_name in ("+result+")")
