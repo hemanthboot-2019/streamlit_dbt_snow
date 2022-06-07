@@ -65,5 +65,5 @@ col5.metric("Aggregate", len(aggregate_count), "4%")
 col3.metric("Outbound", len(outbound_count), "4%")
 my_cnx = snowflake.connector.connect(**st.secrets["snowflake"])
 with my_cnx.cursor() as my_cur:
-     my_cur.execute("select distinct model_name,model_ref_by  from DEV_RAW.PUBLIC.DBT_MAPPING")
+     my_cur.execute("select distinct model_name,model_type  from DEV_RAW.PUBLIC.DBT_MAPPING")
      st.dataframe(my_cur.fetchall())
