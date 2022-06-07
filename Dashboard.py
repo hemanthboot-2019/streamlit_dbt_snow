@@ -87,7 +87,7 @@ def dag(input_array):
                
                
                if len(df)>0:
-                    dag(list_ref,append_df)
+                    dag(list_ref)
           return "end"
      
              
