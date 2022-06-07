@@ -72,7 +72,7 @@ with my_cnx.cursor() as my_cur:
           model_type_opt=st.selectbox("Model Type",(model_type))
           st.text(model_type_opt)
      with col2:
-          my_cur.execute("select distinct model_type  from DEV_RAW.PUBLIC.DBT_MAPPING where model_type='"+model_type_opt+"'")
+          my_cur.execute("select distinct model_name  from DEV_RAW.PUBLIC.DBT_MAPPING where model_type='"+model_type_opt+"'")
           model_list=pd.DataFrame(my_cur.fetchall())
           model_list_opt=st.selectbox("Model List",(model_list))
           st.text(model_type_opt)
