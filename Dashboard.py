@@ -75,9 +75,8 @@ def dag(input_array):
      with my_cnx.cursor() as my_cur:
           my_cur.execute(" select distinct model_name  from DEV_RAW.PUBLIC.DBT_MAPPING where model_ref_by in ("+objects+")")
           #df =pd.DataFrame(pd.np.empty((0, 1)))
+          df=pd.DataFrame(my_cur.fetchall())
           if len(df.columns)>0:
-               df.columns = ["model_name"]
-               df=pd.DataFrame(my_cur.fetchall())
                df.columns = ["model_name"]
                st.text(df)
                list_ref=df['model_name'].tolist()
