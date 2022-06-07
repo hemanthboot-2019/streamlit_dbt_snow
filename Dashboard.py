@@ -85,6 +85,8 @@ def dag(input_array,append_df):
                #st.dataframe(my_cur.fetchall())
                df=pd.DataFrame(my_cur.fetchall())
                append_df.append(df, ignore_index = True)
+               st.dataframe(append_df)
+               
                if len(df)>0:
                     dag(list_ref,append_df)
           return st.dataframe(append_df)
