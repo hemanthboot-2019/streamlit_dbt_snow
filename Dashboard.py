@@ -84,7 +84,8 @@ def dag(input_array):
                my_cur.execute(" select distinct model_name,model_ref_by  from DEV_RAW.PUBLIC.DBT_MAPPING where model_ref_by in ("+objects+")")
                fd=pd.DataFrame(my_cur.fetchall())
                fd.columns = ["model_name","model_ref_by"]
-               res.append(fd['model_name','model_ref_by'].tolist())
+               listdf=fd['model_name','model_ref_by'].tolist()
+               res.append(listdf)
                
                
                if len(df)>0:
