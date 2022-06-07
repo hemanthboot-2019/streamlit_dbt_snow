@@ -83,3 +83,7 @@ with my_cnx.cursor() as my_cur:
           st.text(model_type_opt)
           
      
+     if(st.button('Analyse Impact'):
+        st.text("button clicekd")
+     else
+        st.text("button not clicked")
