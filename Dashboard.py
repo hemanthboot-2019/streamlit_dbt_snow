@@ -66,6 +66,6 @@ col3.metric("Outbound", len(outbound_count), "4%")
 my_cnx = snowflake.connector.connect(**st.secrets["snowflake"])
 with my_cnx.cursor() as my_cur:
      my_cur.execute("select distinct model_type  from DEV_RAW.PUBLIC.DBT_MAPPING")
-     model_type=my_cur.fetchall()
+     model_type=pandas.DataFrame(my_cur.fetchall())
      model_type_opt=st.selectbox("Model Type",(model_type))
      st.text(model_type_opt)
