@@ -97,7 +97,7 @@ with my_cnx.cursor() as my_cur:
           df=pd.DataFrame(my_cur.fetchall())
           df.columns = ["model_name"]
           st.text(df)
-          list_ref=df.['model_name'].tolist()
+          list_ref=df['model_name'].tolist()
           st.text(list_ref)
           #st.text( "select model_name, model_ref_by from DEV_RAW.PUBLIC.DBT_MAPPING where model_type='"+model_type_opt+"' and model_business='"+model_business_opt+"'and model_name in ("+result+")")
      else :
