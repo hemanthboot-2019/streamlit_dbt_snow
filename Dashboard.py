@@ -85,7 +85,7 @@ def dag(input_array):
                st.text(my_cur.fetchall())
                if len(df)>0:
                     dag(list_ref)
-          return list_ref
+          return "END"
              
           
           
