@@ -17,27 +17,32 @@ st.set_page_config(
      }
  )
 #@streamlit.cache  
-
+@st.cache(ttl=3600)
 def get_clean_count():
   with my_cnx.cursor() as my_cur:
     my_cur.execute("select distinct(model_name) from DEV_RAW.PUBLIC.DBT_MAPPING where model_type='clean'")
     return my_cur.fetchall()
+@st.cache(ttl=3600)
 def get_base_count():
   with my_cnx.cursor() as my_cur:
     my_cur.execute("select distinct(model_name) from DEV_RAW.PUBLIC.DBT_MAPPING where model_type='base'")
     return my_cur.fetchall()
+@st.cache(ttl=3600)
 def get_enterprise_count():
   with my_cnx.cursor() as my_cur:
     my_cur.execute("select distinct(model_name) from DEV_RAW.PUBLIC.DBT_MAPPING where model_type='enterprise'")
     return my_cur.fetchall()
+@st.cache(ttl=3600)
 def get_mdl_count():
   with my_cnx.cursor() as my_cur:
     my_cur.execute("select distinct(model_name) from DEV_RAW.PUBLIC.DBT_MAPPING where model_type='mdl'")
     return my_cur.fetchall()
+@st.cache(ttl=3600)
 def get_outbound_count():
   with my_cnx.cursor() as my_cur:
     my_cur.execute("select distinct(model_name) from DEV_RAW.PUBLIC.DBT_MAPPING where model_type='outbound_sds'")
     return my_cur.fetchall()
+@st.cache(ttl=3600)
 def get_aggregate_count():
   with my_cnx.cursor() as my_cur:
     my_cur.execute("select distinct(model_name) from DEV_RAW.PUBLIC.DBT_MAPPING where model_type='aggregate'")
