@@ -87,7 +87,7 @@ with my_cnx.cursor() as my_cur:
           st.text("button clicekd")
           result=', '.join(f'\'{w}\'' for w in model_list_opt)
           st.text(result)
-          my_cur.execute("select model_name, model_ref_by from DEV_RAW.PUBLIC.DBT_MAPPING where model_type='"+model_type_opt+"' and model_business='"+model_business_opt+"'and model_name in ("+result+")")
+          my_cur.execute("select model_name, model_ref_by from DEV_RAW.PUBLIC.DBT_MAPPING where model_type='"+model_type_opt+"' and model_business='"+model_business_opt+"'and model_ref_by in ("+result+")")
           st.dataframe(my_cur.fetchall())
           #st.text( "select model_name, model_ref_by from DEV_RAW.PUBLIC.DBT_MAPPING where model_type='"+model_type_opt+"' and model_business='"+model_business_opt+"'and model_name in ("+result+")")
      else :
