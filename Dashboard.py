@@ -78,11 +78,11 @@ def dag(input_array):
           df=pd.DataFrame(my_cur.fetchall())
           if len(df.columns)>0:
                df.columns = ["model_name"]
-               st.text(df)
+               #st.text(df)
                list_ref=df['model_name'].tolist()
-               st.text(list_ref)
+               #st.text(list_ref)
                my_cur.execute(" select distinct model_name,model_ref_by  from DEV_RAW.PUBLIC.DBT_MAPPING where model_ref_by in ("+objects+")")
-               st.text(my_cur.fetchall())
+               st.dataframe(my_cur.fetchall())
                if len(df)>0:
                     dag(list_ref)
           return "END"
