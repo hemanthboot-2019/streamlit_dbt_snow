@@ -85,7 +85,10 @@ with my_cnx.cursor() as my_cur:
      
      if st.button('Analyse Impact'):
           st.text("button clicekd")
-          result = model_list_opt.to_string(index = False)
+          result = ''
+          for x in model_list_opt:
+               result=result+x+"','"
+          st.text(result)
           #my_cur.execute("select model_name, model_ref_by from DEV_RAW.PUBLIC.DBT_MAPPING where model_type='"+model_type_opt+"' and model_business='"+model_business_opt+"'and model_name in ("+model_list+")")
           st.dataframe( "select model_name, model_ref_by from DEV_RAW.PUBLIC.DBT_MAPPING where model_type='"+model_type_opt+"' and model_business='"+model_business_opt+"'and model_name in ("+result+")")
      else :
