@@ -93,7 +93,7 @@ with my_cnx.cursor() as my_cur:
           result=', '.join(f'\'{w}\'' for w in model_list_opt)
           st.text(result)
           #my_cur.execute("select model_ref_by,model_name  from DEV_RAW.PUBLIC.DBT_MAPPING where model_ref_by in ("+result+")")
-          my_cur.execute(" select model_name  from DEV_RAW.PUBLIC.DBT_MAPPING where model_ref_by in ("+result+")")
+          my_cur.execute(" select distinct model_name  from DEV_RAW.PUBLIC.DBT_MAPPING where model_ref_by in ("+result+")")
           df=pd.DataFrame(my_cur.fetchall())
           st.text(df)
           list_ref=df.values.tolist()
