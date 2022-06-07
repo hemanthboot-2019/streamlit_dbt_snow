@@ -68,10 +68,10 @@ with my_cnx.cursor() as my_cur:
      my_cur.execute("select distinct model_type  from DEV_RAW.PUBLIC.DBT_MAPPING")
      model_type=pd.DataFrame(my_cur.fetchall())
      col1, col2 = st.columns(2)
-     col1:
+     with col1:
           model_type_opt=st.selectbox("Model Type",(model_type))
           st.text(model_type_opt)
-     col2:
+     with col2:
           my_cur.execute("select distinct model_type  from DEV_RAW.PUBLIC.DBT_MAPPING where model_type='"+model_type_opt+"'")
           model_list=pd.DataFrame(my_cur.fetchall())
           model_list_opt=st.selectbox("Model List",(model_list))
