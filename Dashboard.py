@@ -89,11 +89,7 @@ def dag(input_array):
                df = df.reset_index()  # make sure indexes pair with number of rows
 
                for index, row in df.iterrows():
-               #fd.columns = ["model_name","model_ref_by"]
-               #listdf=fd['model_nam'model_ref_by'].tolist()
-               #for i in fd:
-                    
-                    st.text(row('model_name'+ row('model_ref_by')
+                    st.text(row('model_name'+ row('model_ref_by'))
                res.append(fd)
                
                
