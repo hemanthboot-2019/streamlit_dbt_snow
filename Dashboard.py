@@ -124,17 +124,16 @@ with my_cnx.cursor() as my_cur:
           
      
      if st.button('Analyse Impact'):
-          st.text("button clicekd")
+          #st.text("button clicekd")
           result=', '.join(f'\'{w}\'' for w in model_list_opt)
-          st.text(result)
+          #st.text(result)
           #my_cur.execute("select model_ref_by,model_name  from DEV_RAW.PUBLIC.DBT_MAPPING where model_ref_by in ("+result+")")
           my_cur.execute(" select distinct model_name  from DEV_RAW.PUBLIC.DBT_MAPPING where model_ref_by in ("+result+")")
           df=pd.DataFrame(my_cur.fetchall())
           df.columns = ["model_name"]
-          st.text(df)
+          #st.text(df)
           list_ref=df['model_name'].tolist()
-          st.text(list_ref)
-          
+          #st.text(list_ref
           res=list()
           graph = graphviz.Digraph()
           dag(model_list_opt)
