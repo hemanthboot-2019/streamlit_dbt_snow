@@ -123,9 +123,9 @@ with my_cnx.cursor() as my_cur:
           list_ref=df['model_name'].tolist()
           res=[]
           graph = graphviz.Digraph()
-          dag(model_list_opt)
+          
           with st.spinner('Wait for it...'):
-               
+               dag(model_list_opt)
                st.graphviz_chart(graph)
                st.text(res)
      
