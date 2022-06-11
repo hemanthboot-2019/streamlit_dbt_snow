@@ -89,6 +89,7 @@ def dag(input_array):
                df = df.reset_index() 
                for index, row in df.iterrows():
                     graph.edge(row['model_ref_by'], row['model_name'])
+                    res.append(row['model_ref_by']
                if len(df)>0:
                     dag(list_ref)
           return "end"
@@ -119,8 +120,9 @@ with my_cnx.cursor() as my_cur:
           df=pd.DataFrame(my_cur.fetchall())
           df.columns = ["model_name"]
           list_ref=df['model_name'].tolist()
-          res=list()
+          res=[]
           graph = graphviz.Digraph()
           dag(model_list_opt)
           st.graphviz_chart(graph)
+          st.text(res)
      
