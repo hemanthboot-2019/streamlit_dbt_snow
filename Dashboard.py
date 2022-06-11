@@ -3,6 +3,7 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import requests
+import time
 import snowflake.connector
 import graphviz as graphviz
 from urllib.error import URLError
