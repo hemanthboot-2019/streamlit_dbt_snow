@@ -53,7 +53,7 @@ my_cnx = snowflake.connector.connect(**st.secrets["snowflake"])
 with my_cnx.cursor() as my_cur:
      my_cur.execute("select * from DEV_RAW.PUBLIC.DBT_MAPPING where model_type='mdl'")
      df=pd.DataFrame(my_cur.fetchall())
-     df.to_csv('export.csv)
+     df.to_csv('export.csv')
 
 clean_count=get_clean_count()
 clean_count=pd.DataFrame(clean_count)
