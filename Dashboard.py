@@ -6,7 +6,6 @@ import requests
 import snowflake.connector
 import graphviz as graphviz
 from urllib.error import URLError
-# 📜
 st.set_page_config(
      page_title="AI-Support",
      page_icon="❄️",
@@ -80,34 +79,20 @@ def dag(input_array):
      objects=', '.join(f'\'{w}\'' for w in input_array)
      with my_cnx.cursor() as my_cur:
           my_cur.execute(" select distinct model_name  from DEV_RAW.PUBLIC.DBT_MAPPING where model_ref_by in ("+objects+")")
-          #df =pd.DataFrame(pd.np.empty((0, 1)))
           df=pd.DataFrame(my_cur.fetchall())
           if len(df.columns)>0:
                df.columns = ["model_name"]
-               #st.text(df)
                list_ref=df['model_name'].tolist()
-               #st.text(list_ref)
                my_cur.execute(" select distinct model_name,model_ref_by  from DEV_RAW.PUBLIC.DBT_MAPPING where model_ref_by in ("+objects+")")
-               #fd=my_cur.fetchall()
                df = pd.DataFrame(my_cur.fetchall())
                df.columns = ["model_name","model_ref_by"]
-               df = df.reset_index()  # make sure indexes pair with number of rows
-
+               df = df.reset_index() 
                for index, row in df.iterrows():
-                    #st.text(row['model_name']+ row['model_ref_by'])
                     graph.edge(row['model_ref_by'], row['model_name'])
-               
-               #res.append(fd)
-               
-               
                if len(df)>0:
                     dag(list_ref)
           return "end"
-     
-             
-          
-          
-
+ 
 my_cnx = snowflake.connector.connect(**st.secrets["snowflake"])
 with my_cnx.cursor() as my_cur:
      my_cur.execute("select distinct model_type  from DEV_RAW.PUBLIC.DBT_MAPPING")
@@ -129,21 +114,13 @@ with my_cnx.cursor() as my_cur:
           
      
      if st.button('Analyse Impact'):
-          #st.text("button clicekd")
-          result=', '.join(f'\'{w}\'' for w in model_list_opt)
-          #st.text(result)
-          #my_cur.execute("select model_ref_by,model_name  from DEV_RAW.PUBLIC.DBT_MAPPING where model_ref_by in ("+result+")")
+          result=', '.join(f'\'{w}\'' for w in model_list_opt)         
           my_cur.execute(" select distinct model_name  from DEV_RAW.PUBLIC.DBT_MAPPING where model_ref_by in ("+result+")")
           df=pd.DataFrame(my_cur.fetchall())
           df.columns = ["model_name"]
-          #st.text(df)
           list_ref=df['model_name'].tolist()
-          #st.text(list_ref
           res=list()
           graph = graphviz.Digraph()
           dag(model_list_opt)
           st.graphviz_chart(graph)
-          #st.text(res)
-          #st.text( "select model_name, model_ref_by from DEV_RAW.PUBLIC.DBT_MAPPING where model_type='"+model_type_opt+"' and model_business='"+model_business_opt+"'and model_name in ("+result+")")
-     else :
-          st.text("button not clicked")
+     
