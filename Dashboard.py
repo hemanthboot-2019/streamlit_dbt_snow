@@ -82,8 +82,8 @@ def dag(input_array):
                list_ref=df['model_name'].tolist()
                #st.text(list_ref)
                my_cur.execute(" select distinct model_name,model_ref_by  from DEV_RAW.PUBLIC.DBT_MAPPING where model_ref_by in ("+objects+")")
-               fd=pd.DataFrame(my_cur.fetchall())
-               fd.columns = ["model_name","model_ref_by"]
+               fd=my_cur.fetchall()
+               #fd.columns = ["model_name","model_ref_by"]
                #listdf=fd['model_nam'model_ref_by'].tolist()
                res.append(fd)
                
