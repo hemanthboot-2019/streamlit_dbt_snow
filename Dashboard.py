@@ -123,6 +123,7 @@ with my_cnx.cursor() as my_cur:
           res=[]
           graph = graphviz.Digraph()
           dag(model_list_opt)
-          st.graphviz_chart(graph)
-          st.text(res)
+          with st.spinner('Wait for it...'):
+               st.graphviz_chart(graph)
+               st.text(res)
      
