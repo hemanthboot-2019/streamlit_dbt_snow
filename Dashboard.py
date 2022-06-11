@@ -128,4 +128,27 @@ with my_cnx.cursor() as my_cur:
                dag(model_list_opt)
                st.graphviz_chart(graph)
                st.text(res)
+          result=', '.join(f'\'{w}\'' for w in res) 
+          col1,col2,col3,col4,col5,col6 =st.columns(6)
+          with col1:
+               st.text('BASE')
+               my_cur.execute(" select distinct nvl(model_name,'NA')  from DEV_RAW.PUBLIC.DBT_MAPPING where model_name in ("+result+") and model_type ='base")
+          with col2:
+               st.text('CLEAN')
+               my_cur.execute(" select distinct nvl(model_name,'NA')  from DEV_RAW.PUBLIC.DBT_MAPPING where model_name in ("+result+") and model_type ='clean")
+          with col3:
+               st.text('BASE')
+               my_cur.execute(" select distinct nvl(model_name,'NA')  from DEV_RAW.PUBLIC.DBT_MAPPING where model_name in ("+result+") and model_type ='base")
+          with col4:
+               st.text('BASE')
+               my_cur.execute(" select distinct nvl(model_name,'NA')  from DEV_RAW.PUBLIC.DBT_MAPPING where model_name in ("+result+") and model_type ='base")
+          with col5:
+               st.text('BASE')
+               my_cur.execute(" select distinct nvl(model_name,'NA')  from DEV_RAW.PUBLIC.DBT_MAPPING where model_name in ("+result+") and model_type ='base")
+          with col6:
+               st.text('BASE')
+               my_cur.execute(" select distinct nvl(model_name,'NA')  from DEV_RAW.PUBLIC.DBT_MAPPING where model_name in ("+result+") and model_type ='base")
+               
+               
+               
      
