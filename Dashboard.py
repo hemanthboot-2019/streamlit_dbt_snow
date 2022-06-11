@@ -84,11 +84,16 @@ def dag(input_array):
                #st.text(list_ref)
                my_cur.execute(" select distinct model_name,model_ref_by  from DEV_RAW.PUBLIC.DBT_MAPPING where model_ref_by in ("+objects+")")
                fd=my_cur.fetchall()
+               df = pd.DataFrame(my_cur.fetchall())
+               df.columns = ["model_name","model_ref_by"]
+               df = df.reset_index()  # make sure indexes pair with number of rows
+
+               for index, row in df.iterrows():
                #fd.columns = ["model_name","model_ref_by"]
                #listdf=fd['model_nam'model_ref_by'].tolist()
-               for i in fd:
-                    st.dataframe(i)
-                    st.text('for loop')
+               #for i in fd:
+                    
+                    st.text(row('model_name',row('model_ref_by')
                res.append(fd)
                
                
