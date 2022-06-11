@@ -4,6 +4,7 @@ import pandas as pd
 import numpy as np
 import requests
 import snowflake.connector
+import graphviz as graphviz
 from urllib.error import URLError
 # 📜
 st.set_page_config(
@@ -85,7 +86,9 @@ def dag(input_array):
                fd=my_cur.fetchall()
                #fd.columns = ["model_name","model_ref_by"]
                #listdf=fd['model_nam'model_ref_by'].tolist()
-               st.dataframe(fd)
+               for i in fd:
+                    st.dataframe(i)
+                    st.text('for loop')
                res.append(fd)
                
                
