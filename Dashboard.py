@@ -131,28 +131,28 @@ with my_cnx.cursor() as my_cur:
           result=', '.join(f'\'{w}\'' for w in res) 
           col1,col2,col3,col4,col5,col6 =st.columns(6)
           with col1:
-               st.text('BASE')
-               my_cur.execute(" select distinct nvl(model_name,'NA')  from DEV_RAW.PUBLIC.DBT_MAPPING where model_name in ("+result+") and model_type ='base'")
-               st.dataframe(my_cur.fetchall())
-          with col2:
                st.text('CLEAN')
                my_cur.execute(" select distinct nvl(model_name,'NA')  from DEV_RAW.PUBLIC.DBT_MAPPING where model_name in ("+result+") and model_type ='clean'")
                st.dataframe(my_cur.fetchall())
-          with col3:
+          with col2:
                st.text('BASE')
                my_cur.execute(" select distinct nvl(model_name,'NA')  from DEV_RAW.PUBLIC.DBT_MAPPING where model_name in ("+result+") and model_type ='base'")
+               st.dataframe(my_cur.fetchall())
+          with col3:
+               st.text('MDL')
+               my_cur.execute(" select distinct nvl(model_name,'NA')  from DEV_RAW.PUBLIC.DBT_MAPPING where model_name in ("+result+") and model_type ='mdl'")
                st.dataframe(my_cur.fetchall())
           with col4:
-               st.text('BASE')
-               my_cur.execute(" select distinct nvl(model_name,'NA')  from DEV_RAW.PUBLIC.DBT_MAPPING where model_name in ("+result+") and model_type ='base'")
+               st.text('AGGREGATE')
+               my_cur.execute(" select distinct nvl(model_name,'NA')  from DEV_RAW.PUBLIC.DBT_MAPPING where model_name in ("+result+") and model_type ='aggregate'")
                st.dataframe(my_cur.fetchall())
           with col5:
-               st.text('BASE')
-               my_cur.execute(" select distinct nvl(model_name,'NA')  from DEV_RAW.PUBLIC.DBT_MAPPING where model_name in ("+result+") and model_type ='base'")
+               st.text('OUTBOUND')
+               my_cur.execute(" select distinct nvl(model_name,'NA')  from DEV_RAW.PUBLIC.DBT_MAPPING where model_name in ("+result+") and model_type ='outbound_sds'")
                st.dataframe(my_cur.fetchall())
           with col6:
-               st.text('BASE')
-               my_cur.execute(" select distinct nvl(model_name,'NA')  from DEV_RAW.PUBLIC.DBT_MAPPING where model_name in ("+result+") and model_type ='base'")
+               st.text('ENTERPRISE')
+               my_cur.execute(" select distinct nvl(model_name,'NA')  from DEV_RAW.PUBLIC.DBT_MAPPING where model_name in ("+result+") and model_type ='enterprise'")
                st.dataframe(my_cur.fetchall())
                
                
