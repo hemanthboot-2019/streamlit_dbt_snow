@@ -85,6 +85,7 @@ def dag(input_array):
                fd=my_cur.fetchall()
                #fd.columns = ["model_name","model_ref_by"]
                #listdf=fd['model_nam'model_ref_by'].tolist()
+               st.dataframe(fd)
                res.append(fd)
                
                
