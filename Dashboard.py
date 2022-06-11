@@ -129,7 +129,7 @@ with my_cnx.cursor() as my_cur:
                st.graphviz_chart(graph)
                st.text(res)
           result=', '.join(f'\'{w}\'' for w in res) 
-          col1,col2,col3,col4,col5,col6 =st.columns(6)
+          col1,col2,col3 =st.columns(3)
           with col1:
                st.text('CLEAN')
                my_cur.execute(" select distinct nvl(model_name,'NA')  from DEV_RAW.PUBLIC.DBT_MAPPING where model_name in ("+result+") and model_type ='clean'")
@@ -142,6 +142,7 @@ with my_cnx.cursor() as my_cur:
                st.text('MDL')
                my_cur.execute(" select distinct nvl(model_name,'NA')  from DEV_RAW.PUBLIC.DBT_MAPPING where model_name in ("+result+") and model_type ='mdl'")
                st.dataframe(my_cur.fetchall())
+          col4,col5,col6 =st.columns(3)
           with col4:
                st.text('AGGREGATE')
                my_cur.execute(" select distinct nvl(model_name,'NA')  from DEV_RAW.PUBLIC.DBT_MAPPING where model_name in ("+result+") and model_type ='aggregate'")
