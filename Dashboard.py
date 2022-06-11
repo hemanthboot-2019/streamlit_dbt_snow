@@ -124,6 +124,7 @@ with my_cnx.cursor() as my_cur:
           graph = graphviz.Digraph()
           dag(model_list_opt)
           with st.spinner('Wait for it...'):
+               time.sleep(10)
                st.graphviz_chart(graph)
                st.text(res)
      
