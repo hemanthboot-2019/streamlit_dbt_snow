@@ -93,7 +93,7 @@ def dag(input_array):
                #listdf=fd['model_nam'model_ref_by'].tolist()
                #for i in fd:
                     
-                    st.text(row('model_name',row('model_ref_by')
+                    st.text(row('model_name'+ row('model_ref_by')
                res.append(fd)
                
                
