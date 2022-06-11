@@ -90,8 +90,9 @@ def dag(input_array):
 
                for index, row in df.iterrows():
                     st.text(row['model_name']+ row['model_ref_by'])
+                    graph.edge(row['model_ref_by'], row['model_name'])
                
-               res.append(fd)
+               #res.append(fd)
                
                
                if len(df)>0:
@@ -135,8 +136,10 @@ with my_cnx.cursor() as my_cur:
           st.text(list_ref)
           
           res=list()
+          graph = graphviz.Digraph()
           dag(model_list_opt)
-          st.text(res)
+          st.graphviz_chart(graph)
+          #st.text(res)
           #st.text( "select model_name, model_ref_by from DEV_RAW.PUBLIC.DBT_MAPPING where model_type='"+model_type_opt+"' and model_business='"+model_business_opt+"'and model_name in ("+result+")")
      else :
           st.text("button not clicked")
