@@ -89,7 +89,8 @@ def dag(input_array):
                df = df.reset_index()  # make sure indexes pair with number of rows
 
                for index, row in df.iterrows():
-                    st.text(row('model_name'+ row('model_ref_by'))
+                    st.text(row['model_name']+ row['model_ref_by'])
+               
                res.append(fd)
                
                
