@@ -127,7 +127,7 @@ with my_cnx.cursor() as my_cur:
           with st.spinner('Processing ...'):
                dag(model_list_opt)
                st.graphviz_chart(graph)
-               st.text(res)
+               #st.text(res)
           result=', '.join(f'\'{w}\'' for w in res) 
           col1,col2,col3 =st.columns(3)
           with col1:
