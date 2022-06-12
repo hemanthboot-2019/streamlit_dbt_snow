@@ -82,62 +82,62 @@ with my_cnx.cursor() as my_cur:
           materialize.append('incremental')
      material=', '.join(f'\'{w}\'' for w in materialize)      
      st.text(material)
-     
-     result=', '.join(f'\'{w}\'' for w in model_list_opt)         
-     my_cur.execute(" select distinct model_name  from DEV_RAW.PUBLIC.DBT_MAPPING where model_ref_by in ("+result+")")
-     df=pd.DataFrame(my_cur.fetchall())
-     df.columns = ["model_name"]
-     list_ref=df['model_name'].tolist()
-     res=[]
-     graph = graphviz.Digraph()
+     if len(model_list_opt):
+          result=', '.join(f'\'{w}\'' for w in model_list_opt)         
+          my_cur.execute(" select distinct model_name  from DEV_RAW.PUBLIC.DBT_MAPPING where model_ref_by in ("+result+")")
+          df=pd.DataFrame(my_cur.fetchall())
+          df.columns = ["model_name"]
+          list_ref=df['model_name'].tolist()
+          res=[]
+          graph = graphviz.Digraph()
 
-     with st.spinner('Processing ...'):
-          dag(model_list_opt)
-          st.graphviz_chart(graph)
-          #st.text(res)
-     result=', '.join(f'\'{w}\'' for w in res) 
+          with st.spinner('Processing ...'):
+               dag(model_list_opt)
+               st.graphviz_chart(graph)
+               #st.text(res)
+          result=', '.join(f'\'{w}\'' for w in res) 
 
 
-     col1,col2,col3 =st.columns(3)
-     with col1:
-          st.text('CLEAN')
-          my_cur.execute(" select distinct nvl(model_name,'NA')  from DEV_RAW.PUBLIC.DBT_MAPPING where model_name in ("+result+") and model_type ='clean' and CONFIG_MATERIALIZATION in ("+material+")")
-          st.dataframe(my_cur.fetchall())
-     with col2:
-          st.text('BASE')
-          my_cur.execute(" select distinct nvl(model_name,'NA')  from DEV_RAW.PUBLIC.DBT_MAPPING where model_name in ("+result+") and model_type ='base' and CONFIG_MATERIALIZATION in ("+material+")")
-          st.dataframe(my_cur.fetchall())
-     with col3:
-          st.text('MDL')
-          my_cur.execute(" select distinct nvl(model_name,'NA')  from DEV_RAW.PUBLIC.DBT_MAPPING where model_name in ("+result+") and model_type ='mdl' and CONFIG_MATERIALIZATION in ("+material+")")
-          st.dataframe(my_cur.fetchall())
-     col4,col5,col6 =st.columns(3)
-     with col4:
-          st.text('AGGREGATE')
-          my_cur.execute(" select distinct nvl(model_name,'NA')  from DEV_RAW.PUBLIC.DBT_MAPPING where model_name in ("+result+") and model_type ='aggregate' and CONFIG_MATERIALIZATION in ("+material+")")
-          st.dataframe(my_cur.fetchall())
-     with col5:
-          st.text('OUTBOUND')
-          my_cur.execute(" select distinct nvl(model_name,'NA')  from DEV_RAW.PUBLIC.DBT_MAPPING where model_name in ("+result+") and model_type ='outbound_sds' and CONFIG_MATERIALIZATION in ("+material+")")
-          st.dataframe(my_cur.fetchall())
-     with col6:
-          st.text('ENTERPRISE')
-          my_cur.execute(" select distinct nvl(model_name,'NA')  from DEV_RAW.PUBLIC.DBT_MAPPING where model_name in ("+result+") and model_type ='enterprise' and CONFIG_MATERIALIZATION in ("+material+")")
-          st.dataframe(my_cur.fetchall())
-     my_cur.execute(" select distinct nvl(model_name,'NA')  from DEV_RAW.PUBLIC.DBT_MAPPING where model_name in ("+result+") and CONFIG_MATERIALIZATION in ("+material+")")
-     df = pd.DataFrame(my_cur.fetchall())
-     df.columns = ["model_name"]
-     df = df.reset_index() 
-
-     for index, row in df.iterrows():
-          model=row['model_name']
           col1,col2,col3 =st.columns(3)
           with col1:
-               st.text(model)
+               st.text('CLEAN')
+               my_cur.execute(" select distinct nvl(model_name,'NA')  from DEV_RAW.PUBLIC.DBT_MAPPING where model_name in ("+result+") and model_type ='clean' and CONFIG_MATERIALIZATION in ("+material+")")
+               st.dataframe(my_cur.fetchall())
           with col2:
-               st.checkbox('run',key=model)
+               st.text('BASE')
+               my_cur.execute(" select distinct nvl(model_name,'NA')  from DEV_RAW.PUBLIC.DBT_MAPPING where model_name in ("+result+") and model_type ='base' and CONFIG_MATERIALIZATION in ("+material+")")
+               st.dataframe(my_cur.fetchall())
           with col3:
-               st.checkbox('full_refresh',key=model+'_f')
+               st.text('MDL')
+               my_cur.execute(" select distinct nvl(model_name,'NA')  from DEV_RAW.PUBLIC.DBT_MAPPING where model_name in ("+result+") and model_type ='mdl' and CONFIG_MATERIALIZATION in ("+material+")")
+               st.dataframe(my_cur.fetchall())
+          col4,col5,col6 =st.columns(3)
+          with col4:
+               st.text('AGGREGATE')
+               my_cur.execute(" select distinct nvl(model_name,'NA')  from DEV_RAW.PUBLIC.DBT_MAPPING where model_name in ("+result+") and model_type ='aggregate' and CONFIG_MATERIALIZATION in ("+material+")")
+               st.dataframe(my_cur.fetchall())
+          with col5:
+               st.text('OUTBOUND')
+               my_cur.execute(" select distinct nvl(model_name,'NA')  from DEV_RAW.PUBLIC.DBT_MAPPING where model_name in ("+result+") and model_type ='outbound_sds' and CONFIG_MATERIALIZATION in ("+material+")")
+               st.dataframe(my_cur.fetchall())
+          with col6:
+               st.text('ENTERPRISE')
+               my_cur.execute(" select distinct nvl(model_name,'NA')  from DEV_RAW.PUBLIC.DBT_MAPPING where model_name in ("+result+") and model_type ='enterprise' and CONFIG_MATERIALIZATION in ("+material+")")
+               st.dataframe(my_cur.fetchall())
+          my_cur.execute(" select distinct nvl(model_name,'NA')  from DEV_RAW.PUBLIC.DBT_MAPPING where model_name in ("+result+") and CONFIG_MATERIALIZATION in ("+material+")")
+          df = pd.DataFrame(my_cur.fetchall())
+          df.columns = ["model_name"]
+          df = df.reset_index() 
+
+          for index, row in df.iterrows():
+               model=row['model_name']
+               col1,col2,col3 =st.columns(3)
+               with col1:
+                    st.text(model)
+               with col2:
+                    st.checkbox('run',key=model)
+               with col3:
+                    st.checkbox('full_refresh',key=model+'_f')
                     
                
                
