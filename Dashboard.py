@@ -77,9 +77,10 @@ def dag(input_array):
                          res.append(row['model_name'])
                     if len(df)>0:
                          dag(list_ref)
-               return "end"     
+               return "end"    
+my_cnx = snowflake.connector.connect(**st.secrets["snowflake"])
 if tabs == 'Dashboard':
-     my_cnx = snowflake.connector.connect(**st.secrets["snowflake"])
+     
      st.title("DBT-Snowflake Dashboard")
      df=pd.DataFrame(get_model_count())
      df.columns=['model_name','model_count']
