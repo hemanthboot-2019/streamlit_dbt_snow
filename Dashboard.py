@@ -155,7 +155,7 @@ elif tabs=='Impact':
           if incremental:
                materialize.append('incremental')
           material=', '.join(f'\'{w}\'' for w in materialize)      
-          st.text(material)
+          #st.text(material)
           if len(model_list_opt):
                result=', '.join(f'\'{w}\'' for w in model_list_opt)         
                my_cur.execute(" select distinct model_name  from DEV_RAW.PUBLIC.DBT_MAPPING where model_ref_by in ("+result+")")
@@ -218,8 +218,8 @@ elif tabs=='Impact':
                          if full_model:
                               full_list.append(model)
                          
-               st.text(run_list)
-               st.text(full_list)
+               #st.text(run_list)
+               #st.text(full_list)
                dbt_run= 'dbt run --models '
                dbt_full_run= 'dbt run --models'
                for i in run_list:
@@ -230,8 +230,9 @@ elif tabs=='Impact':
                               dbt_run=dbt_run+' '+i
                dbt_full_run = dbt_full_run +' --full-refresh'
                #st.text('DBT RUN :'+dbt_run)
-               st.code(dbt_run, language='dbt')
-               st.text('DBT FULL RUN :'+dbt_full_run)
+               st.code(dbt_run, language='python')
+               st.code(dbt_full_run, language='python')
+               #st.text('DBT FULL RUN :'+dbt_full_run)
                
                     
                
