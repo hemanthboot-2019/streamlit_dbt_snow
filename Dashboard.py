@@ -180,7 +180,7 @@ with my_cnx.cursor() as my_cur:
           df.columns = ["model_name"]
           df = df.reset_index() 
           for index, row in df.iterrows():
-               st.text(row['model_name']
+               st.text(row['model_name'])
                
                
      
