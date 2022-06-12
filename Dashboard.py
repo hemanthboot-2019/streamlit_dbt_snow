@@ -141,7 +141,7 @@ elif tabs=='Impact':
                materialize.append('incremental')
           material=', '.join(f'\'{w}\'' for w in materialize)      
           st.text(material)
-          if st.button('Analyse Impact'):
+          if len(model_list_opt):
                result=', '.join(f'\'{w}\'' for w in model_list_opt)         
                my_cur.execute(" select distinct model_name  from DEV_RAW.PUBLIC.DBT_MAPPING where model_ref_by in ("+result+")")
                df=pd.DataFrame(my_cur.fetchall())
