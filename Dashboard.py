@@ -229,7 +229,8 @@ elif tabs=='Impact':
                          else:
                               dbt_run=dbt_run+' '+i
                dbt_full_run = dbt_full_run +' --full-refresh'
-               st.text('DBT RUN :'+dbt_run)
+               #st.text('DBT RUN :'+dbt_run)
+               st.code(dbt_run, language='python')
                st.text('DBT FULL RUN :'+dbt_full_run)
                
                     
