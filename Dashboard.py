@@ -83,7 +83,7 @@ if tabs == 'Dashboard':
      col4.metric("MDL", len(mdl_count), "-8%")
      col5.metric("Aggregate", len(aggregate_count), "4%")
      col3.metric("Outbound", len(outbound_count), "4%")
-elif tabs=='Impact'
+elif tabs=='Impact':
      def dag(input_array):
           objects=', '.join(f'\'{w}\'' for w in input_array)
           with my_cnx.cursor() as my_cur:
