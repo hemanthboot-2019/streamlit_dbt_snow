@@ -82,7 +82,7 @@ def dag(input_array):
                          res.append(row['model_name'])
                     if len(df)>0:
                          dag(list_ref)
-               return st.graphviz_chart(graph)   
+               return 'END' 
 my_cnx = snowflake.connector.connect(**st.secrets["snowflake"])
 if tabs == 'Dashboard':
      
@@ -153,7 +153,7 @@ elif tabs=='Impact':
 
           with st.spinner('Processing ...'):
                dag(model_list_opt)
-               
+               st.graphviz_chart(graph)  
                #st.text(res)
           result=', '.join(f'\'{w}\'' for w in res) 
 
