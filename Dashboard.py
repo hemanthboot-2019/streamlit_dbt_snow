@@ -152,28 +152,28 @@ with my_cnx.cursor() as my_cur:
           col1,col2,col3 =st.columns(3)
           with col1:
                st.text('CLEAN')
-               my_cur.execute(" select distinct nvl(model_name,'NA')  from DEV_RAW.PUBLIC.DBT_MAPPING where model_name in ("+result+") and model_type ='clean'")
+               my_cur.execute(" select distinct nvl(model_name,'NA')  from DEV_RAW.PUBLIC.DBT_MAPPING where model_name in ("+result+") and model_type ='clean' and CONFIG_MATERIALIZATION in ("+material+")")
                st.dataframe(my_cur.fetchall())
           with col2:
                st.text('BASE')
-               my_cur.execute(" select distinct nvl(model_name,'NA')  from DEV_RAW.PUBLIC.DBT_MAPPING where model_name in ("+result+") and model_type ='base'")
+               my_cur.execute(" select distinct nvl(model_name,'NA')  from DEV_RAW.PUBLIC.DBT_MAPPING where model_name in ("+result+") and model_type ='base' and CONFIG_MATERIALIZATION in ("+material+")")
                st.dataframe(my_cur.fetchall())
           with col3:
                st.text('MDL')
-               my_cur.execute(" select distinct nvl(model_name,'NA')  from DEV_RAW.PUBLIC.DBT_MAPPING where model_name in ("+result+") and model_type ='mdl'")
+               my_cur.execute(" select distinct nvl(model_name,'NA')  from DEV_RAW.PUBLIC.DBT_MAPPING where model_name in ("+result+") and model_type ='mdl' and CONFIG_MATERIALIZATION in ("+material+")")
                st.dataframe(my_cur.fetchall())
           col4,col5,col6 =st.columns(3)
           with col4:
                st.text('AGGREGATE')
-               my_cur.execute(" select distinct nvl(model_name,'NA')  from DEV_RAW.PUBLIC.DBT_MAPPING where model_name in ("+result+") and model_type ='aggregate'")
+               my_cur.execute(" select distinct nvl(model_name,'NA')  from DEV_RAW.PUBLIC.DBT_MAPPING where model_name in ("+result+") and model_type ='aggregate' and CONFIG_MATERIALIZATION in ("+material+")")
                st.dataframe(my_cur.fetchall())
           with col5:
                st.text('OUTBOUND')
-               my_cur.execute(" select distinct nvl(model_name,'NA')  from DEV_RAW.PUBLIC.DBT_MAPPING where model_name in ("+result+") and model_type ='outbound_sds'")
+               my_cur.execute(" select distinct nvl(model_name,'NA')  from DEV_RAW.PUBLIC.DBT_MAPPING where model_name in ("+result+") and model_type ='outbound_sds' and CONFIG_MATERIALIZATION in ("+material+")")
                st.dataframe(my_cur.fetchall())
           with col6:
                st.text('ENTERPRISE')
-               my_cur.execute(" select distinct nvl(model_name,'NA')  from DEV_RAW.PUBLIC.DBT_MAPPING where model_name in ("+result+") and model_type ='enterprise'")
+               my_cur.execute(" select distinct nvl(model_name,'NA')  from DEV_RAW.PUBLIC.DBT_MAPPING where model_name in ("+result+") and model_type ='enterprise' and CONFIG_MATERIALIZATION in ("+material+")")
                st.dataframe(my_cur.fetchall())
                
                
