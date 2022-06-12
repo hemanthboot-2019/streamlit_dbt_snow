@@ -39,39 +39,31 @@ with st.sidebar:
                                                      'margin-bottom': '30px',
                                                      'padding-left': '30px'}},
                              default_choice=0)
-#@streamlit.cache  
-
+@streamlit.cache  
+def get_model_count():
+     with my_cnx.cursor() as my_cur:
+          my_cur.execute("select model_type,count(distinct model_name)  from DEV_RAW.PUBLIC.DBT_MAPPING group by model_type")
+          return my_cur.fetchall()
+     
 if tabs == 'Dashboard':
-     @st.cache(ttl=3600)
-     def get_model_count():
-          with my_cnx.cursor() as my_cur:
-               my_cur.execute("select model_type,count(distinct model_name)  from DEV_RAW.PUBLIC.DBT_MAPPING group by model_type")
-               df=pd.DataFrame(my_cur.fetchall())
-               df.columns=['model_name','model_count']
-               df = df.reset_index() 
-               for index, row in df.iterrows():
-                    if row['model_name']=='clean':
-                         clean_count=row['model_count']
-                    if row['model_name']=='base':
-                         base_count=row['model_count']
-                    if row['model_name']=='mdl':
-                         mdl_count=row['model_count']
-                    if row['model_name']=='outbound_sds':
-                         outbound_count=row['model_count']
-                    if row['model_name']=='aggregate':
-                         agg_count=row['model_count']
-                    if row['model_name']=='enterprise':
-                         ent_count=row['model_count']
-                         
      my_cnx = snowflake.connector.connect(**st.secrets["snowflake"])
      st.title("DBT-Snowflake Dashboard")
-     clean_count=0
-     base_count=0
-     ent_count=0
-     mdl_count=0
-     agg_count=0
-     outbound_count=0
-     get_model_count()
+     df=pd.DataFrame(get_model_count())
+     df.columns=['model_name','model_count']
+     df = df.reset_index() 
+     for index, row in df.iterrows():
+          if row['model_name']=='clean':
+               clean_count=row['model_count']
+          if row['model_name']=='base':
+               base_count=row['model_count']
+          if row['model_name']=='mdl':
+               mdl_count=row['model_count']
+          if row['model_name']=='outbound_sds':
+               outbound_count=row['model_count']
+          if row['model_name']=='aggregate':
+               agg_count=row['model_count']
+          if row['model_name']=='enterprise':
+               ent_count=row['model_count']
      col1, col2, col3, col4, col5, col6 = st.columns(6)
      col1.metric("Clean", clean_count, "1.2 °F")
      col2.metric("Base", base_count, "-8%")
