@@ -220,6 +220,18 @@ elif tabs=='Impact':
                          
                st.text(run_list)
                st.text(full_list)
+               dbt_run= 'dbt run --models '
+               dbt_full_run= 'dbt run --models'
+               for i in run_list:
+                    for j in full_list:
+                         if j==i:
+                              dbt_full_run = dbt_full_run +' '+i
+                         else:
+                              dbt_run=dbt_run+' '+i
+               dbt_full_run = dbt_full_run +' --full-refresh'
+               st.text('DBT RUN :'+dbt_run)
+               st.text('DBT FULL RUN :'+dbt_full_run)
+               
                     
                
                
