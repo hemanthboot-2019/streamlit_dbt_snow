@@ -114,7 +114,25 @@ with my_cnx.cursor() as my_cur:
           model_list_opt=st.multiselect("Model List",(model_list))
           st.text(model_list_opt)
           
-     
+     col0,col1,col2,col3 =st.columns(4)
+     with col0:
+          st.text('Materialization :')
+     with col1:
+          view = st.checkbox('View',value=True)
+     with col2:
+          table = st.checkbox('Table',value=True)
+     with col3:
+          incremental = st.checkbox('Incremental',value=True)
+     materialize=[]
+     if view:
+          
+          materialize.append('view')
+     if table:
+          materialize.append('table')
+     if incremental:
+          materialize.append('incremental')
+     material=', '.join(f'\'{w}\'' for w in materialize)      
+     st.text(material)
      if st.button('Analyse Impact'):
           result=', '.join(f'\'{w}\'' for w in model_list_opt)         
           my_cur.execute(" select distinct model_name  from DEV_RAW.PUBLIC.DBT_MAPPING where model_ref_by in ("+result+")")
@@ -129,25 +147,7 @@ with my_cnx.cursor() as my_cur:
                st.graphviz_chart(graph)
                #st.text(res)
           result=', '.join(f'\'{w}\'' for w in res) 
-          col0,col1,col2,col3 =st.columns(4)
-          with col0:
-               st.text('Materialization :')
-        
-          with col1:
-               view = st.checkbox('View',value=True)
-          with col2:
-               table = st.checkbox('Table',value=True)
-          with col3:
-               incremental = st.checkbox('Incremental',value=True)
-          materialize=[]
-          if view:
-               materialize.append('view')
-          if table:
-               materialize.append('table')
-          if incremental:
-               materialize.append('incremental')
-          material=', '.join(f'\'{w}\'' for w in materialize)      
-          st.text(material)
+          
           
           col1,col2,col3 =st.columns(3)
           with col1:
