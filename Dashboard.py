@@ -43,6 +43,34 @@ with st.sidebar:
 
 if tabs == 'Dashboard':
      @st.cache(ttl=3600)
+     def get_model_count():
+          with my_cnx.cursor() as my_cur:
+               my_cur.execute("select model_type,count(1)  from DEV_RAW.PUBLIC.DBT_MAPPING group by model_type")
+               df=pd.DataFrame(my_cur.fetchall())
+               df.columns=['model_name','model_count']
+               df = df.reset_index() 
+               for index, row in df.iterrows():
+                    if row['model_name']=='clean':
+                         clean_count=row['model_count']
+                    if row['model_name']=='base':
+                         base_count=row['model_count']
+                    if row['model_name']=='mdl':
+                         mdl_count=row['model_count']
+                    if row['model_name']=='outbound_sds':
+                         outbound_count=row['model_count']
+                    if row['model_name']=='aggregate':
+                         agg_count=row['model_count']
+                    if row['model_name']=='enterprise':
+                         ent_count=row['model_count']
+               col1, col2, col3, col4, col5, col6 = st.columns(6)
+               col1.metric("Clean", clean_count, "1.2 °F")
+               col2.metric("Base", base_count, "-8%")
+               col6.metric("Enterprise", ent_count, "4%")
+               col4.metric("MDL", mdl_count, "-8%")
+               col5.metric("Aggregate", agg_count, "4%")
+               col3.metric("Outbound", outbound_count, "4%")
+         
+     @st.cache(ttl=3600)
      def get_clean_count():
        with my_cnx.cursor() as my_cur:
          my_cur.execute("select distinct(model_name) from DEV_RAW.PUBLIC.DBT_MAPPING where model_type='clean'")
@@ -98,6 +126,7 @@ if tabs == 'Dashboard':
      col4.metric("MDL", len(mdl_count), "-8%")
      col5.metric("Aggregate", len(aggregate_count), "4%")
      col3.metric("Outbound", len(outbound_count), "4%")
+     get_model_count()
 elif tabs=='Impact':
      def dag(input_array):
           objects=', '.join(f'\'{w}\'' for w in input_array)
