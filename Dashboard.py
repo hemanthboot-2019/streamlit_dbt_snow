@@ -179,16 +179,16 @@ with my_cnx.cursor() as my_cur:
           df = pd.DataFrame(my_cur.fetchall())
           df.columns = ["model_name"]
           df = df.reset_index() 
-          d = {}
+          
           for index, row in df.iterrows():
+               model=row['model_name']
                col1,col2,col3 =st.columns(3)
                with col1:
-                    st.text(row['model_name'])
+                    st.text(model)
                with col2:
-                    row['model_name']=st.checkbox('run',key=row['model_name'])
+                    st.checkbox('run',key=model)
                with col3:
-                    st.text(str(row['model_name'])+'_f')
-                    row['model_name']=st.checkbox('full_refresh',key=str(row['model_name'])+'_f')
+                    st.checkbox('full_refresh',key=model+'_f')
                     
                
                
