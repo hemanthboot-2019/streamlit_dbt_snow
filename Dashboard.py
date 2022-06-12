@@ -7,6 +7,8 @@ import time
 import snowflake.connector
 import graphviz as graphviz
 from urllib.error import URLError
+from st_on_hover_tabs import on_hover_tabs
+
 st.set_page_config(
      page_title="AI-Support",
      page_icon="❄️",
@@ -18,6 +20,10 @@ st.set_page_config(
          'About': "# This is a header. This is an *extremely* cool app!"
      }
  )
+st.markdown('<style>' + open('./style.css').read() + '</style>', unsafe_allow_html=True)
+with st.sidebar:
+    tabs = on_hover_tabs(tabName=['Dashboard', 'Money', 'Economy'], 
+                         iconName=['dashboard', 'money', 'economy'], default_choice=0)
 #@streamlit.cache  
 @st.cache(ttl=3600)
 def get_clean_count():
