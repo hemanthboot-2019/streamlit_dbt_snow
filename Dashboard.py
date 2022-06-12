@@ -26,7 +26,7 @@ with st.sidebar:
                          iconName=['dashboard', 'money', 'economy'], default_choice=0)
 #@streamlit.cache  
 @st.cache(ttl=3600)
-if tabs='Dashboard'
+if tabs='Dashboard':
      def get_clean_count():
        with my_cnx.cursor() as my_cur:
          my_cur.execute("select distinct(model_name) from DEV_RAW.PUBLIC.DBT_MAPPING where model_type='clean'")
