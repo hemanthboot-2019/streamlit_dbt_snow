@@ -23,7 +23,7 @@ st.set_page_config(
 st.markdown('<style>' + open('./style.css').read() + '</style>', unsafe_allow_html=True)
 with st.sidebar:
     tabs = on_hover_tabs(tabName=['Dashboard', 'Impact', 'Economy'], 
-                         iconName=['dashboard', 'insights', 'economy']
+                         iconName=['dashboard', 'insights', 'economy'],
                          styles = {'navtab': {'background-color':'#111',
                                                   'color': '#818181',
                                                   'font-size': '18px',
