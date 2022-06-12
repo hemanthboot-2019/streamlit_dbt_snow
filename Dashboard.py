@@ -209,7 +209,7 @@ elif tabs=='Impact':
                     with col1:
                          st.text(model)
                     with col2:
-                         d["run_{0}".format(x)] = st.checkbox('run',key=model)
+                         d["run_{0}".format(model)] = st.checkbox('run',key=model)
                     with col3:
                          st.checkbox('full_refresh',key=model+'_f')
                          
