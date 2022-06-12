@@ -129,6 +129,17 @@ with my_cnx.cursor() as my_cur:
                st.graphviz_chart(graph)
                #st.text(res)
           result=', '.join(f'\'{w}\'' for w in res) 
+          col0,col1,col2,col3 =st.columns(4)
+          with col0:
+               st.text('Materialization :')
+        
+          with col1:
+               view = st.checkbox('View')
+          with col2:
+               table = st.checkbox('Table')
+          with col3:
+               incremental = st.checkbox('Incremental')
+          
           col1,col2,col3 =st.columns(3)
           with col1:
                st.text('CLEAN')
