@@ -58,7 +58,7 @@ with my_cnx.cursor() as my_cur:
           model_business_opt=st.selectbox("Model Business",(model_business))
           st.text(model_business_opt)
      with col3:
-          my_cur.execute("select distinct model_name  from DEV_RAW.PUBLIC.DBT_MAPPING where model_type='"+model_type_opt+"' and model_business='"+model_business_opt+"' model_name")
+          my_cur.execute("select distinct model_name  from DEV_RAW.PUBLIC.DBT_MAPPING where model_type='"+model_type_opt+"' and model_business='"+model_business_opt+"' order by model_name")
           model_list=pd.DataFrame(my_cur.fetchall())
           model_list_opt=st.multiselect("Model List",(model_list))
           st.text(model_list_opt)
