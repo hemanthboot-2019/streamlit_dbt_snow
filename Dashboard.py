@@ -202,17 +202,21 @@ elif tabs=='Impact':
                df = pd.DataFrame(my_cur.fetchall())
                df.columns = ["model_name"]
                df = df.reset_index() 
-               run_list={}
-               full_list={}
+               run_list=[]
+               full_list=[]
                for index, row in df.iterrows():
                     model=row['model_name']
                     col1,col2,col3 =st.columns(3)
                     with col1:
                          st.text(model)
                     with col2:
-                         run_list["run_{0}".format(model)] = st.checkbox('run',key=model)
+                         run_model = st.checkbox('run',key=model)
+                         if run_model:
+                              run_list.append(model)
                     with col3:
-                         full_list["full_{0}".format(model)]= st.checkbox('full_refresh',key=model+'_f')
+                         full_model = st.checkbox('full_refresh',key=model+'_f')
+                         if full_model:
+                              full_list.append(model)
                          
                st.text(run_list)
                st.text(full_list)
