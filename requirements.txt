@@ -1,2 +1,3 @@
 graphviz
 snowflake-connector-python
+streamlit-on-Hover-tabs
