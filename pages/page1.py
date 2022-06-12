@@ -46,19 +46,19 @@ def dag(input_array):
  
 my_cnx = snowflake.connector.connect(**st.secrets["snowflake"])
 with my_cnx.cursor() as my_cur:
-     my_cur.execute("select distinct model_type  from DEV_RAW.PUBLIC.DBT_MAPPING")
+     my_cur.execute("select distinct model_type  from DEV_RAW.PUBLIC.DBT_MAPPING order by model_type ")
      model_type=pd.DataFrame(my_cur.fetchall())
      col1, col2,col3 = st.columns(3)
      with col1:
           model_type_opt=st.selectbox("Model Type",(model_type))
           st.text(model_type_opt)
      with col2:
-          my_cur.execute("select distinct model_business from DEV_RAW.PUBLIC.DBT_MAPPING where model_type='"+model_type_opt+"'")
+          my_cur.execute("select distinct model_business from DEV_RAW.PUBLIC.DBT_MAPPING where model_type='"+model_type_opt+"' order by model_business ")
           model_business=pd.DataFrame(my_cur.fetchall())
-          model_business_opt=st.selectbox("Model Business",(model_business.index))
+          model_business_opt=st.selectbox("Model Business",(model_business))
           st.text(model_business_opt)
      with col3:
-          my_cur.execute("select distinct model_name  from DEV_RAW.PUBLIC.DBT_MAPPING where model_type='"+model_type_opt+"' and model_business='"+model_business_opt+"'")
+          my_cur.execute("select distinct model_name  from DEV_RAW.PUBLIC.DBT_MAPPING where model_type='"+model_type_opt+"' and model_business='"+model_business_opt+"' model_name")
           model_list=pd.DataFrame(my_cur.fetchall())
           model_list_opt=st.multiselect("Model List",(model_list))
           st.text(model_list_opt)
