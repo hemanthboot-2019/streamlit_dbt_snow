@@ -139,6 +139,15 @@ with my_cnx.cursor() as my_cur:
                table = st.checkbox('Table',value=True)
           with col3:
                incremental = st.checkbox('Incremental',value=True)
+          materialize=[]
+          if view:
+               materialize.append('view')
+          if table:
+               materialize.append('table')
+          if incremental:
+               materialize.append('incremental')
+          material=', '.join(f'\'{w}\'' for w in materialize)      
+          st.text(material)
           
           col1,col2,col3 =st.columns(3)
           with col1:
