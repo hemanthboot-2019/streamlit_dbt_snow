@@ -157,68 +157,68 @@ elif tabs=='Impact':
                #st.text(res)
           result=', '.join(f'\'{w}\'' for w in res) 
 
-
-          col1,col2,col3 =st.columns(3)
-          with col1:
-               st.text('CLEAN')
-               my_cur.execute(" select distinct nvl(model_name,'NA')  from DEV_RAW.PUBLIC.DBT_MAPPING where model_name in ("+result+") and model_type ='clean' and CONFIG_MATERIALIZATION in ("+material+")")
-               st.dataframe(my_cur.fetchall())
-          with col2:
-               st.text('BASE')
-               my_cur.execute(" select distinct nvl(model_name,'NA')  from DEV_RAW.PUBLIC.DBT_MAPPING where model_name in ("+result+") and model_type ='base' and CONFIG_MATERIALIZATION in ("+material+")")
-               st.dataframe(my_cur.fetchall())
-          with col3:
-               st.text('MDL')
-               my_cur.execute(" select distinct nvl(model_name,'NA')  from DEV_RAW.PUBLIC.DBT_MAPPING where model_name in ("+result+") and model_type ='mdl' and CONFIG_MATERIALIZATION in ("+material+")")
-               st.dataframe(my_cur.fetchall())
-          col4,col5,col6 =st.columns(3)
-          with col4:
-               st.text('AGGREGATE')
-               my_cur.execute(" select distinct nvl(model_name,'NA')  from DEV_RAW.PUBLIC.DBT_MAPPING where model_name in ("+result+") and model_type ='aggregate' and CONFIG_MATERIALIZATION in ("+material+")")
-               st.dataframe(my_cur.fetchall())
-          with col5:
-               st.text('OUTBOUND')
-               my_cur.execute(" select distinct nvl(model_name,'NA')  from DEV_RAW.PUBLIC.DBT_MAPPING where model_name in ("+result+") and model_type ='outbound_sds' and CONFIG_MATERIALIZATION in ("+material+")")
-               st.dataframe(my_cur.fetchall())
-          with col6:
-               st.text('ENTERPRISE')
-               my_cur.execute(" select distinct nvl(model_name,'NA')  from DEV_RAW.PUBLIC.DBT_MAPPING where model_name in ("+result+") and model_type ='enterprise' and CONFIG_MATERIALIZATION in ("+material+")")
-               st.dataframe(my_cur.fetchall())
-          my_cur.execute(" select distinct nvl(model_name,'NA')  from DEV_RAW.PUBLIC.DBT_MAPPING where model_name in ("+result+") and CONFIG_MATERIALIZATION in ("+material+")")
-          df = pd.DataFrame(my_cur.fetchall())
-          df.columns = ["model_name"]
-          df = df.reset_index() 
-          run_list=[]
-          full_list=['']
-          for index, row in df.iterrows():
-               model=row['model_name']
+          with my_cnx.cursor() as my_cur:
                col1,col2,col3 =st.columns(3)
                with col1:
-                    st.text(model)
+                    st.text('CLEAN')
+                    my_cur.execute(" select distinct nvl(model_name,'NA')  from DEV_RAW.PUBLIC.DBT_MAPPING where model_name in ("+result+") and model_type ='clean' and CONFIG_MATERIALIZATION in ("+material+")")
+                    st.dataframe(my_cur.fetchall())
                with col2:
-                    run_model = st.checkbox('run',key=model)
-                    if run_model:
-                         run_list.append(model)
+                    st.text('BASE')
+                    my_cur.execute(" select distinct nvl(model_name,'NA')  from DEV_RAW.PUBLIC.DBT_MAPPING where model_name in ("+result+") and model_type ='base' and CONFIG_MATERIALIZATION in ("+material+")")
+                    st.dataframe(my_cur.fetchall())
                with col3:
-                    full_model = st.checkbox('full_refresh',key=model+'_f',value=False)
-                    if full_model:
-                         full_list.append(model)
+                    st.text('MDL')
+                    my_cur.execute(" select distinct nvl(model_name,'NA')  from DEV_RAW.PUBLIC.DBT_MAPPING where model_name in ("+result+") and model_type ='mdl' and CONFIG_MATERIALIZATION in ("+material+")")
+                    st.dataframe(my_cur.fetchall())
+               col4,col5,col6 =st.columns(3)
+               with col4:
+                    st.text('AGGREGATE')
+                    my_cur.execute(" select distinct nvl(model_name,'NA')  from DEV_RAW.PUBLIC.DBT_MAPPING where model_name in ("+result+") and model_type ='aggregate' and CONFIG_MATERIALIZATION in ("+material+")")
+                    st.dataframe(my_cur.fetchall())
+               with col5:
+                    st.text('OUTBOUND')
+                    my_cur.execute(" select distinct nvl(model_name,'NA')  from DEV_RAW.PUBLIC.DBT_MAPPING where model_name in ("+result+") and model_type ='outbound_sds' and CONFIG_MATERIALIZATION in ("+material+")")
+                    st.dataframe(my_cur.fetchall())
+               with col6:
+                    st.text('ENTERPRISE')
+                    my_cur.execute(" select distinct nvl(model_name,'NA')  from DEV_RAW.PUBLIC.DBT_MAPPING where model_name in ("+result+") and model_type ='enterprise' and CONFIG_MATERIALIZATION in ("+material+")")
+                    st.dataframe(my_cur.fetchall())
+               my_cur.execute(" select distinct nvl(model_name,'NA')  from DEV_RAW.PUBLIC.DBT_MAPPING where model_name in ("+result+") and CONFIG_MATERIALIZATION in ("+material+")")
+               df = pd.DataFrame(my_cur.fetchall())
+               df.columns = ["model_name"]
+               df = df.reset_index() 
+               run_list=[]
+               full_list=['']
+               for index, row in df.iterrows():
+                    model=row['model_name']
+                    col1,col2,col3 =st.columns(3)
+                    with col1:
+                         st.text(model)
+                    with col2:
+                         run_model = st.checkbox('run',key=model)
+                         if run_model:
+                              run_list.append(model)
+                    with col3:
+                         full_model = st.checkbox('full_refresh',key=model+'_f',value=False)
+                         if full_model:
+                              full_list.append(model)
 
-          #st.text(run_list)
-          #st.text(full_list)
-          dbt_run= 'dbt run --models '
-          dbt_full_run= 'dbt run --models'
-          for i in run_list:
-               for j in full_list:
-                    if j==i:
-                         dbt_full_run = dbt_full_run +' '+i
-                    else:
-                         dbt_run=dbt_run+' '+i
-          dbt_full_run = dbt_full_run +' --full-refresh'
-          #st.text('DBT RUN :'+dbt_run)
-          st.code(dbt_run, language='python')
-          st.code(dbt_full_run, language='python')
-          #st.text('DBT FULL RUN :'+dbt_full_run)
+               #st.text(run_list)
+               #st.text(full_list)
+               dbt_run= 'dbt run --models '
+               dbt_full_run= 'dbt run --models'
+               for i in run_list:
+                    for j in full_list:
+                         if j==i:
+                              dbt_full_run = dbt_full_run +' '+i
+                         else:
+                              dbt_run=dbt_run+' '+i
+               dbt_full_run = dbt_full_run +' --full-refresh'
+               #st.text('DBT RUN :'+dbt_run)
+               st.code(dbt_run, language='python')
+               st.code(dbt_full_run, language='python')
+               #st.text('DBT FULL RUN :'+dbt_full_run)
                
                     
                
