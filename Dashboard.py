@@ -26,61 +26,62 @@ with st.sidebar:
                          iconName=['dashboard', 'money', 'economy'], default_choice=0)
 #@streamlit.cache  
 @st.cache(ttl=3600)
-def get_clean_count():
-  with my_cnx.cursor() as my_cur:
-    my_cur.execute("select distinct(model_name) from DEV_RAW.PUBLIC.DBT_MAPPING where model_type='clean'")
-    return my_cur.fetchall()
-@st.cache(ttl=3600)
-def get_base_count():
-  with my_cnx.cursor() as my_cur:
-    my_cur.execute("select distinct(model_name) from DEV_RAW.PUBLIC.DBT_MAPPING where model_type='base'")
-    return my_cur.fetchall()
-@st.cache(ttl=3600)
-def get_enterprise_count():
-  with my_cnx.cursor() as my_cur:
-    my_cur.execute("select distinct(model_name) from DEV_RAW.PUBLIC.DBT_MAPPING where model_type='enterprise'")
-    return my_cur.fetchall()
-@st.cache(ttl=3600)
-def get_mdl_count():
-  with my_cnx.cursor() as my_cur:
-    my_cur.execute("select distinct(model_name) from DEV_RAW.PUBLIC.DBT_MAPPING where model_type='mdl'")
-    return my_cur.fetchall()
-@st.cache(ttl=3600)
-def get_outbound_count():
-  with my_cnx.cursor() as my_cur:
-    my_cur.execute("select distinct(model_name) from DEV_RAW.PUBLIC.DBT_MAPPING where model_type='outbound_sds'")
-    return my_cur.fetchall()
-@st.cache(ttl=3600)
-def get_aggregate_count():
-  with my_cnx.cursor() as my_cur:
-    my_cur.execute("select distinct(model_name) from DEV_RAW.PUBLIC.DBT_MAPPING where model_type='aggregate'")
-    return my_cur.fetchall()
-my_cnx = snowflake.connector.connect(**st.secrets["snowflake"])
-with my_cnx.cursor() as my_cur:
-     my_cur.execute("select * from DEV_RAW.PUBLIC.DBT_MAPPING where model_type='mdl'")
-     df=pd.DataFrame(my_cur.fetchall())
-     df.to_csv('./export.csv')
+if tabs='Dashboard'
+     def get_clean_count():
+       with my_cnx.cursor() as my_cur:
+         my_cur.execute("select distinct(model_name) from DEV_RAW.PUBLIC.DBT_MAPPING where model_type='clean'")
+         return my_cur.fetchall()
+     @st.cache(ttl=3600)
+     def get_base_count():
+       with my_cnx.cursor() as my_cur:
+         my_cur.execute("select distinct(model_name) from DEV_RAW.PUBLIC.DBT_MAPPING where model_type='base'")
+         return my_cur.fetchall()
+     @st.cache(ttl=3600)
+     def get_enterprise_count():
+       with my_cnx.cursor() as my_cur:
+         my_cur.execute("select distinct(model_name) from DEV_RAW.PUBLIC.DBT_MAPPING where model_type='enterprise'")
+         return my_cur.fetchall()
+     @st.cache(ttl=3600)
+     def get_mdl_count():
+       with my_cnx.cursor() as my_cur:
+         my_cur.execute("select distinct(model_name) from DEV_RAW.PUBLIC.DBT_MAPPING where model_type='mdl'")
+         return my_cur.fetchall()
+     @st.cache(ttl=3600)
+     def get_outbound_count():
+       with my_cnx.cursor() as my_cur:
+         my_cur.execute("select distinct(model_name) from DEV_RAW.PUBLIC.DBT_MAPPING where model_type='outbound_sds'")
+         return my_cur.fetchall()
+     @st.cache(ttl=3600)
+     def get_aggregate_count():
+       with my_cnx.cursor() as my_cur:
+         my_cur.execute("select distinct(model_name) from DEV_RAW.PUBLIC.DBT_MAPPING where model_type='aggregate'")
+         return my_cur.fetchall()
+     my_cnx = snowflake.connector.connect(**st.secrets["snowflake"])
+     with my_cnx.cursor() as my_cur:
+          my_cur.execute("select * from DEV_RAW.PUBLIC.DBT_MAPPING where model_type='mdl'")
+          df=pd.DataFrame(my_cur.fetchall())
+          df.to_csv('./export.csv')
 
-clean_count=get_clean_count()
-clean_count=pd.DataFrame(clean_count)
-base_count=get_base_count()
-base_count=pd.DataFrame(base_count)
-enterprise_count=get_enterprise_count()
-enterprise_count=pd.DataFrame(enterprise_count)
-mdl_count=get_mdl_count()
-mdl_count=pd.DataFrame(mdl_count)
-outbound_count=get_outbound_count()
-outbound_count=pd.DataFrame(outbound_count)
-aggregate_count=get_aggregate_count()
-aggregate_count=pd.DataFrame(aggregate_count)
-st.title("DBT-Snowflake Dashboard")
-col1, col2, col3, col4, col5, col6 = st.columns(6)
-col1.metric("Clean", len(clean_count), "1.2 °F")
-col2.metric("Base", len(base_count), "-8%")
-col6.metric("Enterprise", len(enterprise_count), "4%")
-col4.metric("MDL", len(mdl_count), "-8%")
-col5.metric("Aggregate", len(aggregate_count), "4%")
-col3.metric("Outbound", len(outbound_count), "4%")
+     clean_count=get_clean_count()
+     clean_count=pd.DataFrame(clean_count)
+     base_count=get_base_count()
+     base_count=pd.DataFrame(base_count)
+     enterprise_count=get_enterprise_count()
+     enterprise_count=pd.DataFrame(enterprise_count)
+     mdl_count=get_mdl_count()
+     mdl_count=pd.DataFrame(mdl_count)
+     outbound_count=get_outbound_count()
+     outbound_count=pd.DataFrame(outbound_count)
+     aggregate_count=get_aggregate_count()
+     aggregate_count=pd.DataFrame(aggregate_count)
+     st.title("DBT-Snowflake Dashboard")
+     col1, col2, col3, col4, col5, col6 = st.columns(6)
+     col1.metric("Clean", len(clean_count), "1.2 °F")
+     col2.metric("Base", len(base_count), "-8%")
+     col6.metric("Enterprise", len(enterprise_count), "4%")
+     col4.metric("MDL", len(mdl_count), "-8%")
+     col5.metric("Aggregate", len(aggregate_count), "4%")
+     col3.metric("Outbound", len(outbound_count), "4%")
 
 def dag(input_array):
      objects=', '.join(f'\'{w}\'' for w in input_array)
