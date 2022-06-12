@@ -59,6 +59,11 @@ def get_model_name_by_business(model_type,model_business):
      with my_cnx.cursor() as my_cur:
           my_cur.execute("select distinct model_name from DEV_RAW.PUBLIC.DBT_MAPPING where model_type='"+model_type+"' and model_business='"+model_business+"' order by model_name")
           return my_cur.fetchall()
+@st.cache
+def get_model_name_by_ref(ref):
+     with my_cnx.cursor() as my_cur:
+          my_cur.execute("select distinct model_name  from DEV_RAW.PUBLIC.DBT_MAPPING where model_ref_by in ("+ref+")")
+          return my_cur.fetchall()
 @st.cache     
 def dag(input_array):
           objects=', '.join(f'\'{w}\'' for w in input_array)
@@ -139,9 +144,8 @@ elif tabs=='Impact':
      material=', '.join(f'\'{w}\'' for w in materialize)      
      #st.text(material)
      if len(model_list_opt):
-          result=', '.join(f'\'{w}\'' for w in model_list_opt)         
-          my_cur.execute(" select distinct model_name  from DEV_RAW.PUBLIC.DBT_MAPPING where model_ref_by in ("+result+")")
-          df=pd.DataFrame(my_cur.fetchall())
+          ref=', '.join(f'\'{w}\'' for w in model_list_opt)         
+          df=pd.DataFrame(get_model_name_by_ref(ref))
           df.columns = ["model_name"]
           list_ref=df['model_name'].tolist()
           res=[]
