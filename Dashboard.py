@@ -38,7 +38,7 @@ with st.sidebar:
                                        'tabStyle' : {'list-style-type': 'none',
                                                      'margin-bottom': '30px',
                                                      'padding-left': '30px'}},
-                             key="2")
+                             default_choice=0)
 #@streamlit.cache  
 
 if tabs == 'Dashboard':
