@@ -187,7 +187,7 @@ with my_cnx.cursor() as my_cur:
                with col2:
                     row['model_name']=st.checkbox('run',key=row['model_name'])
                with col3:
-                    row['model_name']=st.checkbox('full_refresh',key=row['model_name']+"_f")
+                    row['model_name']=st.checkbox('full_refresh',key=str(row['model_name']+'_f'))
                     
                
                
