@@ -134,11 +134,11 @@ with my_cnx.cursor() as my_cur:
                st.text('Materialization :')
         
           with col1:
-               view = st.checkbox('View')
+               view = st.checkbox('View',value=True)
           with col2:
-               table = st.checkbox('Table')
+               table = st.checkbox('Table',value=True)
           with col3:
-               incremental = st.checkbox('Incremental')
+               incremental = st.checkbox('Incremental',value=True)
           
           col1,col2,col3 =st.columns(3)
           with col1:
