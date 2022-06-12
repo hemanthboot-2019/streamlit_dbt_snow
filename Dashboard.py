@@ -175,7 +175,12 @@ with my_cnx.cursor() as my_cur:
                st.text('ENTERPRISE')
                my_cur.execute(" select distinct nvl(model_name,'NA')  from DEV_RAW.PUBLIC.DBT_MAPPING where model_name in ("+result+") and model_type ='enterprise' and CONFIG_MATERIALIZATION in ("+material+")")
                st.dataframe(my_cur.fetchall())
-               
+          my_cur.execute(" select distinct nvl(model_name,'NA')  from DEV_RAW.PUBLIC.DBT_MAPPING where model_name in ("+result+") and CONFIG_MATERIALIZATION in ("+material+")")
+          df = pd.DataFrame(my_cur.fetchall())
+          df.columns = ["model_name"]
+          df = df.reset_index() 
+          for index, row in df.iterrows():
+               st.text(row['model_name']
                
                
      
