@@ -45,7 +45,7 @@ if tabs == 'Dashboard':
      @st.cache(ttl=3600)
      def get_model_count():
           with my_cnx.cursor() as my_cur:
-               my_cur.execute("select model_type,count(1)  from DEV_RAW.PUBLIC.DBT_MAPPING group by model_type")
+               my_cur.execute("select model_type,count(distinct model_name)  from DEV_RAW.PUBLIC.DBT_MAPPING group by model_type")
                df=pd.DataFrame(my_cur.fetchall())
                df.columns=['model_name','model_count']
                df = df.reset_index() 
