@@ -55,7 +55,7 @@ with my_cnx.cursor() as my_cur:
      with col2:
           my_cur.execute("select distinct model_business from DEV_RAW.PUBLIC.DBT_MAPPING where model_type='"+model_type_opt+"'")
           model_business=pd.DataFrame(my_cur.fetchall())
-          model_business_opt=st.selectbox("Model Business",(model_business))
+          model_business_opt=st.selectbox("Model Business",(model_business.index))
           st.text(model_business_opt)
      with col3:
           my_cur.execute("select distinct model_name  from DEV_RAW.PUBLIC.DBT_MAPPING where model_type='"+model_type_opt+"' and model_business='"+model_business_opt+"'")
