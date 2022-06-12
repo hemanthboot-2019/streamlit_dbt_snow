@@ -202,8 +202,8 @@ elif tabs=='Impact':
                df = pd.DataFrame(my_cur.fetchall())
                df.columns = ["model_name"]
                df = df.reset_index() 
-               run_list=[]
-               full_list=[]
+               run_list=['']
+               full_list=['']
                for index, row in df.iterrows():
                     model=row['model_name']
                     col1,col2,col3 =st.columns(3)
