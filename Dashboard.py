@@ -23,7 +23,7 @@ st.set_page_config(
 st.markdown('<style>' + open('./style.css').read() + '</style>', unsafe_allow_html=True)
 with st.sidebar:
     tabs = on_hover_tabs(tabName=['Dashboard', 'Impact', 'Economy'], 
-                         iconName=['dashboard', 'money', 'economy'], default_choice=0)
+                         iconName=['dashboard', 'insights', 'economy'], default_choice=0)
 #@streamlit.cache  
 
 if tabs == 'Dashboard':
