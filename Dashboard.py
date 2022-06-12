@@ -63,7 +63,7 @@ if tabs == 'Dashboard':
                     if row['model_name']=='enterprise':
                          ent_count=row['model_count']
                          
-     my_cnx = snowflake.connector.connect(**st.secrets["snowflake"]
+     my_cnx = snowflake.connector.connect(**st.secrets["snowflake"])
      st.title("DBT-Snowflake Dashboard")
      get_model_count()
      col1, col2, col3, col4, col5, col6 = st.columns(6)
