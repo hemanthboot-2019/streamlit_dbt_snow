@@ -179,8 +179,16 @@ with my_cnx.cursor() as my_cur:
           df = pd.DataFrame(my_cur.fetchall())
           df.columns = ["model_name"]
           df = df.reset_index() 
+          d = {}
           for index, row in df.iterrows():
-               st.text(row['model_name'])
+               col1,col2,col3 =st.columns(3)
+               with col1:
+                    st.text(row['model_name'])
+               with col2:
+                    str(row['model_name'])+"_button"=st.checkbox('run')
+               with col3:
+                    str(row['model_name'])+"_button_f"=st.checkbox('full_refresh')
+                    
                
                
      
