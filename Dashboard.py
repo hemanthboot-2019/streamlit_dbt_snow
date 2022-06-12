@@ -65,6 +65,12 @@ if tabs == 'Dashboard':
                          
      my_cnx = snowflake.connector.connect(**st.secrets["snowflake"])
      st.title("DBT-Snowflake Dashboard")
+     clean_count=0
+     base_count=0
+     ent_count=0
+     mdl_count=0
+     agg_count=0
+     outbound_count=0
      get_model_count()
      col1, col2, col3, col4, col5, col6 = st.columns(6)
      col1.metric("Clean", clean_count, "1.2 °F")
