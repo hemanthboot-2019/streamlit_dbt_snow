@@ -64,7 +64,7 @@ def get_model_name_by_ref(ref):
      with my_cnx.cursor() as my_cur:
           my_cur.execute("select distinct model_name  from DEV_RAW.PUBLIC.DBT_MAPPING where model_ref_by in ("+ref+")")
           return my_cur.fetchall()
-@st.cache     
+ 
 def dag(input_array):
           objects=', '.join(f'\'{w}\'' for w in input_array)
           with my_cnx.cursor() as my_cur:
