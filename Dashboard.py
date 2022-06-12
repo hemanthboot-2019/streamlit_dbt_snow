@@ -39,7 +39,7 @@ with st.sidebar:
                                                      'margin-bottom': '30px',
                                                      'padding-left': '30px'}},
                              default_choice=0)
-@streamlit.cache  
+@st.cache  
 def get_model_count():
      with my_cnx.cursor() as my_cur:
           my_cur.execute("select model_type,count(distinct model_name)  from DEV_RAW.PUBLIC.DBT_MAPPING group by model_type")
