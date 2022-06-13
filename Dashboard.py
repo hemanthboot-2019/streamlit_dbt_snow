@@ -10,7 +10,7 @@ from urllib.error import URLError
 from st_on_hover_tabs import on_hover_tabs
 
 st.set_page_config(
-     page_title="AI-Support",
+     page_title="Solve",
      page_icon="❄️",
      layout="wide",
      initial_sidebar_state="expanded",
@@ -87,7 +87,7 @@ def dag(input_array):
 my_cnx = snowflake.connector.connect(**st.secrets["snowflake"])
 if tabs == 'Dashboard':
      
-     st.title("DBT-Snowflake Dashboard")
+     st.title("Welcome to Solve")
      df=pd.DataFrame(get_model_count())
      df.columns=['model_name','model_count']
      df = df.reset_index() 
