@@ -38,7 +38,7 @@ with st.sidebar:
                                                     'text-align': 'left'},
                                        'tabStyle' : {'list-style-type': 'none',
                                                      'margin-bottom': '10px',
-                                                     'padding-left': '30px'}},
+                                                     'padding-left': '10px'}},
                              default_choice=0)
 
 def get_model_count():
