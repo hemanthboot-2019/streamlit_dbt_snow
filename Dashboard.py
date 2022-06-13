@@ -53,7 +53,7 @@ def set_page_container_style(
             ''',
             unsafe_allow_html=True,
         )
-set_page_container_style()
+
 st.markdown('<style>' + open('./style.css').read() + '</style>', unsafe_allow_html=True)
 with st.sidebar:
     tabs = on_hover_tabs(tabName=['Dashboard', 'Analysis', 'Economy'], 
@@ -73,6 +73,7 @@ with st.sidebar:
                                                      'margin-bottom': '30px',
                                                      'padding-left': '30px'}},
                              default_choice=0)
+set_page_container_style()
 @st.cache  
 def get_model_count():
      with my_cnx.cursor() as my_cur:
