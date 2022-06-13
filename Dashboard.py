@@ -35,7 +35,7 @@ with st.sidebar:
                                                                       'cursor': 'pointer'}},
                                        'iconStyle':{'position':'fixed',
                                                     'left':'7.5px',
-                                                    'text-align': 'left'},
+                                                    'text-align': 'center'},
                                        'tabStyle' : {'list-style-type': 'none',
                                                      'margin-bottom': '25px',
                                                      'padding-left': '30px'}},
