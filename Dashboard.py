@@ -87,7 +87,7 @@ def dag(input_array):
 my_cnx = snowflake.connector.connect(**st.secrets["snowflake"])
 if tabs == 'Dashboard':
      
-     st.markdown("Welcome to "+'<p style="font-family:verdana">Solve </p>')
+     st.markdown("Welcome to "+<p style="font-family:verdana">Solve </p>)
      df=pd.DataFrame(get_model_count())
      df.columns=['model_name','model_count']
      df = df.reset_index() 
