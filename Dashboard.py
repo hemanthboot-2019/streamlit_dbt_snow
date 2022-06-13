@@ -37,18 +37,10 @@ with st.sidebar:
                                                     'left':'7.5px',
                                                     'text-align': 'left'},
                                        'tabStyle' : {'list-style-type': 'none',
-                                                     'margin-bottom': '30px',
+                                                     'margin-bottom': '10px',
                                                      'padding-left': '30px'}},
                              default_choice=0)
-padding = 10
-st.markdown(f""" <style>
-    .reportview-container .main .block-container{{
-        padding-top: {padding}rem;
-        padding-right: {padding}rem;
-        padding-left: {padding}rem;
-        padding-bottom: {padding}rem;
-    }} </style> """, unsafe_allow_html=True)
-@st.cache  
+
 def get_model_count():
      with my_cnx.cursor() as my_cur:
           my_cur.execute("select model_type,count(distinct model_name) from DEV_RAW.PUBLIC.DBT_MAPPING group by model_type")
