@@ -37,7 +37,7 @@ with st.sidebar:
                                                     'left':'7.5px',
                                                     'text-align': 'left'},
                                        'tabStyle' : {'list-style-type': 'none',
-                                                     'margin-bottom': '0px',
+                                                     'margin-bottom': '25px',
                                                      'padding-left': '30px'}},
                              default_choice=0)
 
