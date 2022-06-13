@@ -40,7 +40,7 @@ with st.sidebar:
                                                      'margin-bottom': '30px',
                                                      'padding-left': '30px'}},
                              default_choice=0)
-padding = 0
+padding = 10
 st.markdown(f""" <style>
     .reportview-container .main .block-container{{
         padding-top: {padding}rem;
