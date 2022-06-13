@@ -22,7 +22,7 @@ st.set_page_config(
  )
 st.markdown('<style>' + open('./style.css').read() + '</style>', unsafe_allow_html=True)
 with st.sidebar:
-    tabs = on_hover_tabs(tabName=['Dashboard', 'Impact', 'Economy'], 
+    tabs = on_hover_tabs(tabName=['Dashboard', 'Analysis', 'Economy'], 
                          iconName=['dashboard', 'insights', 'economy'],
                          styles = {'navtab': {'background-color':'#111',
                                                   'color': '#818181',
@@ -111,7 +111,7 @@ if tabs == 'Dashboard':
      col5.metric("Aggregate", agg_count, "4%")
      col3.metric("Outbound", outbound_count, "4%")
                                           
-elif tabs=='Impact':
+elif tabs=='Analysis':
      
      col1, col2,col3 = st.columns(3)
      with col1:
